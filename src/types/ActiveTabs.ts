@@ -1,0 +1,1 @@
+export type ActiveTabs = "daily" | "history" | "investments" | "calculator" 
