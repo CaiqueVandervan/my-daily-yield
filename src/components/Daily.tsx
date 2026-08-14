@@ -5,21 +5,17 @@ import { Icon } from "@iconify/react"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { DatePicker } from "./cn/DatePicker"
-
-interface ValuesCalculation {
-    value: string
-    category: string
-    date: string
-    observation: string
-}
+import CustomSelect from "./CustomSelect"
+import { ValuesCalculation } from "@/types/ValuesCalculation"
 
 export default function Daily() {
 
-    const { register, handleSubmit, watch, formState: { isValid } } = useForm<ValuesCalculation>()
+    const { register, handleSubmit, watch, setValue, formState: { isValid } } = useForm<ValuesCalculation>()
 
     const [alertMessage, setAlertMessage] = useState<{ message: string, type: string } | null>(null)
 
     const value = watch("value")
+    const numericValue = value?.replace(/\D/g, "")
 
     const handleSubmitCalculation = () => {
         setAlertMessage({ message: "Rendimento gerado com sucesso", type: "sucess" })
@@ -32,7 +28,7 @@ export default function Daily() {
     }, [alertMessage])
 
     const labelClasses = "pl-3 font-medium text-[20px] text-white flex items-center gap-2"
-    const inputClasses = "p-2 rounded-xl bg-gray-500"
+    const inputClasses = "p-2 rounded-xl bg-gray-600 text-white outline-none focus:ring-1 focus:ring-white hover:bg-gray-500 transition duration-200 appearance-none"
 
     return (
         <section className="grid grid-cols-3 items-start bg-[#151D33] flex-1 m-3 rounded-xl border border-amber-200/20 ">
@@ -55,8 +51,14 @@ export default function Daily() {
                                 </label>
                                 <input className={inputClasses}
                                     id="value"
-                                    type="number"
-                                    {...register("value", { required: true })}
+                                    type="text"
+                                    inputMode="numeric"
+                                    {...register("value", {
+                                        required: true,
+                                        onChange: (e) => {
+                                            e.target.value = e.target.value.replace(/\D/g, "")
+                                        }
+                                    })}
                                     placeholder="R$"
                                 />
                             </div>
@@ -78,20 +80,14 @@ export default function Daily() {
 
 
                         <div className="grid w-full gap-1">
-                            <label className={labelClasses}
-                                htmlFor="category">
+                            <label className={labelClasses}>
                                 <Icon className="text-amber-300"
-                                    icon="tabler:coin"
+                                    icon="material-symbols:category"
                                     width={20} />
                                 Category
                             </label>
-                            <select className={inputClasses}
-                                id="category"
-                                {...register("category", { required: true })}
-                            >
 
-                            </select>
-
+                            <CustomSelect setValue={setValue} />
                         </div>
 
                         <div className="grid w-full gap-1">
@@ -112,7 +108,7 @@ export default function Daily() {
                             <button className={`p-3 rounded-xl  ${isValid ? "bg-amber-300 cursor-pointer hover:-translate-y-1 hover:shadow-xl transition duration-300" : "bg-amber-100"}`}
                                 type="submit"
                                 disabled={!isValid}>
-                                {value ? `Save today's expense` : 'Salvar Rendimento de hoje (R$0,00)'}
+                                {numericValue ? `Save today's expense (R$${numericValue})` : "Save today's expense"}
                             </button>
                         </div>
                     </form>
