@@ -2,7 +2,6 @@
 
 import NavBar from "@/components/NavBar";
 import Content from "@/components/Daily";
-import History from "@/components/History";
 import { useState } from "react";
 import { ActiveTabs } from "@/types/ActiveTabs";
 import Investments from "@/components/Investments";
@@ -17,8 +16,6 @@ export default function Home() {
       <NavBar activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {activeTab === "daily" && (<Content />)}
-
-      {activeTab === "history" && (<History goToDaily={() => setActiveTab("daily")} />)}
 
       {activeTab === "investments" && (<Investments />)}
 

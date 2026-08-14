@@ -24,10 +24,6 @@ export default function NavBar({ activeTab, setActiveTab }: NavBarProps) {
                             onClick={() => setActiveTab("daily")}>
                             <Icon icon="hugeicons:task-daily-01" className="mb-0.5" />Daily
                         </button>
-                        <button className={buttonClass("history")}
-                            onClick={() => setActiveTab("history")}>
-                            <Icon icon="material-symbols:history-rounded" />History
-                        </button>
                         <button className={buttonClass("investments")}
                             onClick={() => setActiveTab("investments")}>
                             <Icon icon="heroicons:arrow-trending-up-20-solid" />Investments
