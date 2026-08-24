@@ -37,19 +37,19 @@ export default function CustomSelect({ setValue }: CustomSelect) {
             iconClassName: "text-orange-400 text-[18px]",
         },
         {
-            id: 1,
+            id: 2,
             name: "Gym",
             icon: "mdi:gym",
             iconClassName: "text-blue-400 text-[18px]",
         },
         {
-            id: 1,
+            id: 3,
             name: "Suplements",
             icon: "tabler:milk-filled",
             iconClassName: "text-gray-200 text-[18px]",
         },
         {
-            id: 1,
+            id: 4,
             name: "Bills",
             icon: "fa7-solid:money-bills",
             iconClassName: "text-emerald-400 text-[18px]",

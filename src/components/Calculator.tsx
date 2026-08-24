@@ -5,7 +5,7 @@ import { Icon } from "@iconify/react"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 
-interface CompoundInterestResult {
+interface InterestResult {
     totalWithDepositOverYears: number
     capital: number
     interestIncome: number
@@ -22,7 +22,7 @@ export default function Calculator() {
 
     const { register, handleSubmit, setValue, watch, formState: { isValid } } = useForm<CompoundCalculator>()
 
-    const [result, setResult] = useState<CompoundInterestResult>()
+    const [result, setResult] = useState<InterestResult>()
     const [openSelectOptions, setOpenSelectOptions] = useState<boolean>(false)
 
     const timeType = watch("timeType")
