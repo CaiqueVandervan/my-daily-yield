@@ -82,7 +82,7 @@ export default function Calculator() {
     const inputClasses = "p-2 rounded-xl bg-gray-600 text-white focus:ring-1 focus:ring-white hover:bg-gray-500 transition duration-200"
 
     return (
-        <section className="grid grid-cols-2 bg-[rgb(21,29,51)] flex-1 m-3 rounded-xl border border-amber-200/20">
+        <section className="grid grid-cols-2 bg-[#151D33] flex-1 m-3 rounded-xl border border-amber-200/20">
             <div className="border-r border-amber-200/20">
                 <div className="grid p-1 gap-5">
                     <div className="grid justify-center">
@@ -107,6 +107,7 @@ export default function Calculator() {
                                     <input className={inputClasses}
                                         id="capital"
                                         type="text"
+                                        autoComplete="off"
                                         {...register("capital", {
                                             required: true,
                                             setValueAs: (value) => {
@@ -131,6 +132,7 @@ export default function Calculator() {
                                     <input className={inputClasses}
                                         id="interest"
                                         type="text"
+                                        autoComplete="off"
                                         {...register("interest", {
                                             required: true,
                                             onChange: (e) => {
@@ -179,6 +181,7 @@ export default function Calculator() {
                                     <input className={inputClasses}
                                         id="time"
                                         type="text"
+                                        autoComplete="off"
                                         {...register("time", {
                                             required: true,
                                             onChange: (e) => {
@@ -199,6 +202,7 @@ export default function Calculator() {
                                     <input className={inputClasses}
                                         id="deposit"
                                         type="text"
+                                        autoComplete="off"
                                         {...register("deposit", {
                                             setValueAs: (value) => {
                                                 const digits = value.replace(/\D/g, "")
@@ -226,34 +230,41 @@ export default function Calculator() {
 
                     {result && (
                         <div className="grid gap-3">
-                            <div className="grid gap-2 rounded-xl bg-gray-800 text-white p-2 border border-amber-200/20">
-                                <div className="font-medium text-[24px] text-white flex items-center gap-2">
-                                    <Icon className="text-amber-300 mb-1"
-                                        icon="carbon:result"
-                                        width={28} />
-                                    <h1>Results</h1>
+                            <div className="flex justify-center">
+                                <div className="grid gap-2 rounded-xl bg-gray-800 text-white p-2 border border-amber-200/20 w-[70%]">
+                                    <div className="font-medium text-[24px] text-white flex items-center gap-2">
+                                        <Icon className="text-amber-300 mb-1"
+                                            icon="carbon:result"
+                                            width={28} />
+                                        <h1>Results</h1>
+                                    </div>
+
+                                    <div className="grid grid-cols-3 gap-4">
+                                        <div className="border-r border-amber-200/20">
+                                            <p className="text-[14px]">Total income</p>
+                                            <p className="text-green-400 text-[28px]">{formatMoney(finalResult?.totalWithDepositOverYears ?? 0)}</p>
+                                        </div>
+                                        <div className="border-r border-amber-200/20">
+                                            <p className="text-[14px]">Total Invested</p>
+                                            <p className=" text-[28px]">{formatMoney(finalResult?.totalInvested ?? 0)}</p>
+                                        </div>
+
+
+                                        <div>
+                                            <p className="text-[14px]">Interest</p>
+                                            <p className="text-[28px]">{formatMoney(finalResult?.interestIncome ?? 0)}</p>
+                                        </div>
+
+
+                                    </div>
                                 </div>
 
-                                <div className="grid grid-cols-3 gap-4">
-                                    <div className="border-r border-amber-200/20">
-                                        <p className="text-[14px]">Total income</p>
-                                        <p className="text-green-400 text-[28px]">{formatMoney(finalResult?.totalWithDepositOverYears ?? 0)}</p>
-                                    </div>
-                                    <div className="border-r border-amber-200/20">
-                                        <p className="text-[14px]">Total Invested</p>
-                                        <p className=" text-[28px]">{formatMoney(finalResult?.totalInvested ?? 0)}</p>
-                                    </div>
-
-
-                                    <div>
-                                        <p className="text-[14px]">Interest</p>
-                                        <p className="text-[28px]">{formatMoney(finalResult?.interestIncome ?? 0)}</p>
-                                    </div>
-
-
+                            </div>
+                            <div className="flex justify-center">
+                                <div className="w-[90%]">
+                                    <InterestBarChart chartData={result} />
                                 </div>
                             </div>
-                            <InterestBarChart chartData={result} />
                         </div>
                     )}
 
